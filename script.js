@@ -220,6 +220,20 @@ function comprovarVictoria(){
             $(this).css('background-image','none');
         });
 
+    }else if(   A1 != "none" && A2 != "none" && A3 != "none" && B1 != "none" && B2 != "none" && B3 != "none"
+                && C1 != "none" && C2 != "none" && C3 != "none"){
+
+        alert("Empat");
+
+        $("#formStart").show();
+        $("#tablero").css("display", "none");
+        clearInterval(intervalIdCrear);
+        clearInterval(intervalIdConectar);
+        borrarPartida();
+        $(".cela").each(function () {
+            $(this).css('background-image','none');
+        });
+
     }
 }
 
