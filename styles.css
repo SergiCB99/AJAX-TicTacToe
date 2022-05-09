@@ -1,0 +1,17 @@
+.cela{
+    background-color: grey;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: grey;
+}
+
+body{
+    justify-content: center;
+}
+
+#tablero{
+    display: none;
+}
