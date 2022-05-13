@@ -4,8 +4,6 @@ var intervalIdConectar;
 
 $("#crearPartida").click(function() {
 
-    intervalIdCrear = setInterval(infoGame,250);
-
     ficha = "X";
 
     //Creem la partida
@@ -20,6 +18,9 @@ $("#crearPartida").click(function() {
                 //S'amaga el formulari i es mostra el taulell
                 $("#formStart").hide();
                 $("#tablero").css("display", "block");
+                $(".cela").css('background-image','none');
+
+                intervalIdCrear = setInterval(infoGame,250);
 
             }
 
@@ -29,12 +30,15 @@ $("#crearPartida").click(function() {
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send('{"action": "createGame","gameName": "'+$("#nomPartida").val()+'","gamePassword": "'+$("#passPartida").val()+'"}');
 
+    }else if($("#nomPartida").val() == ""){
+        alert("Has d'introduir el nom de la partida");
+    }else if($("#passPartida").val() == ""){
+        alert("Has d'introduir la contrasenya de la partida");
     }
+
 });
 
 $("#conectarPartida").click(function () {
-
-    intervalIdConectar = setInterval(infoGame,250);
 
     ficha = "O";
 
@@ -49,12 +53,12 @@ $("#conectarPartida").click(function () {
 
                 var response = JSON.parse(this.responseText);
 
-                console.log(response);
-
                 if(response.status == "OK" && response.player == "") {
                     //S'amaga el formulari i es mostra el taulell
                     $("#formStart").hide();
                     $("#tablero").css("display", "block");
+                    $(".cela").css('background-image','none');
+                    intervalIdConectar = setInterval(infoGame,250);
                 }else if(response.status == "KO"){
                     alert("La partida no existeix");
                 }else if(response.player != ""){
@@ -67,6 +71,8 @@ $("#conectarPartida").click(function () {
         xhttp.open("POST", "https://tictactoe.codifi.cat/", true);
         xhttp.setRequestHeader("Content-Type", "application/json");
         xhttp.send('{"action": "infoGame","gameName": "'+$("#nomPartida").val()+'"}');
+    }else{
+        alert("Has d'introduir el nom de la partida");
     }
 
 });
@@ -81,14 +87,13 @@ $(".cela").click(function () {
 
         if (this.readyState == 4 && this.status == 200) {
 
-            //Pasem la resposta a JSON
-            var response = JSON.parse(this.responseText);
-
             //Comprovem que la cela que hem clicat sigui buida
             if($("#"+idCela).css("background-image") == "none") {
 
                 jugar(idCela, ficha);
 
+            }else{
+                alert("No pots posar fitxa aqui");
             }
 
         }
@@ -116,6 +121,8 @@ function jugar(idCela, jugador){
 
                 $("#" + idCela).css("background-image", "url(imatges/" + jugador + ".png)");
 
+            }else{
+                alert("No es el teu torn");
             }
         }
 
@@ -141,7 +148,6 @@ function infoGame(){
             printarTaulell(response.gameInfo);
 
             comprovarVictoria();
-            //console.log(response);
 
         }
 
@@ -196,9 +202,6 @@ function comprovarVictoria(){
         clearInterval(intervalIdCrear);
         clearInterval(intervalIdConectar);
         borrarPartida();
-        $(".cela").each(function () {
-            $(this).css('background-image','none');
-        });
 
     }else if(   A1 == O && A2 == O && A3 == O ||
                 B1 == O && B2 == O && B3 == O ||
@@ -216,9 +219,6 @@ function comprovarVictoria(){
         clearInterval(intervalIdCrear);
         clearInterval(intervalIdConectar);
         borrarPartida();
-        $(".cela").each(function () {
-            $(this).css('background-image','none');
-        });
 
     }else if(   A1 != "none" && A2 != "none" && A3 != "none" && B1 != "none" && B2 != "none" && B3 != "none"
                 && C1 != "none" && C2 != "none" && C3 != "none"){
@@ -230,9 +230,6 @@ function comprovarVictoria(){
         clearInterval(intervalIdCrear);
         clearInterval(intervalIdConectar);
         borrarPartida();
-        $(".cela").each(function () {
-            $(this).css('background-image','none');
-        });
 
     }
 }
