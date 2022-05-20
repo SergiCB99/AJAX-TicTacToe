@@ -1,17 +1,40 @@
 .cela{
-    background-color: grey;
+    background-color: #a07a41;
     width: 100px;
     height: 100px;
     display: inline-block;
+    box-shadow: inset 0px 0px 8px 5px #d3a867;
     background-repeat: no-repeat;
     background-position: center;
-    color: grey;
+
 }
 
 body{
+    display: flex;
     justify-content: center;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+
 }
 
 #tablero{
     display: none;
+
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    
+}
+
+.paragrafo{
+    text-align: center;
+    font-size: 35px;
+    filter:blur(0.5px);
+    text-shadow: 2px 2px white;
+    color: grey;
 }
